@@ -14,6 +14,9 @@ A plain HTML/CSS/JavaScript site. No build step, no database: upload the folder 
 | `trading.html` | Trading division (from April 2027) with sign-up form |
 | `contact.html` | Contact methods and quote form |
 
+The site files sit at the top of the repository, so Vercel serves them with no settings.
+`design-drafts/` holds the early design options and the client questionnaire; `.vercelignore` keeps that folder off the live site.
+
 Shared files: `css/style.css` (all styling and brand colours), `js/main.js` (mobile menu, machine filter, rate tabs, forms), `images/`.
 
 ## Before going live
@@ -29,8 +32,9 @@ Shared files: `css/style.css` (all styling and brand colours), `js/main.js` (mob
 
 ## Preview locally
 
+From the repository folder:
+
 ```bash
-cd milabi-website
 python3 -m http.server 8080
 ```
 

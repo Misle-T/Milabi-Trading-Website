@@ -1,0 +1,218 @@
+<title>Milabi Spec Sheet</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: engineering-drawing sheet on a faint survey grid; fleet as datasheet tables; drawing title block as footer */
+:root{
+  --paper:#f2f4f1; --sheet:#fbfcfa; --ink:#1b2836; --muted:#5d6b78; --rule:#cdd5d8; --grid:rgba(36,87,166,.07);
+  --blue:#2457a6; --orange:#d9542a; --on-blue:#ffffff;
+  --head:"Schibsted Grotesk",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0f151b; --sheet:#141c24; --ink:#e4eaef; --muted:#93a1ad; --rule:#2a3642; --grid:rgba(120,165,235,.06);
+  --blue:#7aa6ec; --orange:#f07a4f; --on-blue:#0d1620; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0f151b; --sheet:#141c24; --ink:#e4eaef; --muted:#93a1ad; --rule:#2a3642; --grid:rgba(120,165,235,.06);
+  --blue:#7aa6ec; --orange:#f07a4f; --on-blue:#0d1620; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--head);font-size:16px;line-height:1.6;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--sheet)}
+.wrap{max-width:1140px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{margin:0;line-height:1.08;text-wrap:balance;letter-spacing:-.02em}
+a{color:var(--blue)}
+:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--sheet);border-bottom:1px solid var(--rule)}
+.nav{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-block:14px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-weight:800;font-size:19px}
+.logo svg{width:30px;height:30px}
+.nav nav{display:flex;gap:22px;font-size:14px}
+.nav nav a{color:var(--muted);text-decoration:none}.nav nav a:hover{color:var(--ink)}
+.btn{display:inline-block;background:var(--blue);color:var(--on-blue);text-decoration:none;font-weight:700;padding:11px 18px;border-radius:2px;border:0;font:inherit;font-weight:700;cursor:pointer}
+.btn.line{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+@media (max-width:760px){.nav nav{display:none}}
+
+.sheet{background:var(--sheet);border:1px solid var(--rule);margin-block:32px}
+.hero{display:grid;grid-template-columns:1.15fr .85fr}
+.hero .copy{padding:48px;border-right:1px solid var(--rule);min-width:0}
+.hero h1{font-size:clamp(38px,5.4vw,68px);font-weight:800;margin:16px 0 20px}
+.hero h1 em{font-style:normal;color:var(--blue)}
+.hero p{color:var(--muted);font-size:18px;max-width:48ch;margin:0 0 28px}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap}
+.drawing{position:relative;padding:32px;display:flex;flex-direction:column;justify-content:center;min-width:0}
+.drawing svg{width:100%;height:auto;color:var(--ink)}
+.drawing .dim{stroke:var(--orange);fill:var(--orange)}
+.drawing figcaption{margin-top:12px}
+@media (max-width:860px){.hero{grid-template-columns:1fr}.hero .copy{border-right:0;border-bottom:1px solid var(--rule);padding:32px 20px}}
+
+.strip{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--rule)}
+.strip div{padding:18px 24px;border-right:1px solid var(--rule);min-width:0}
+.strip div:last-child{border-right:0}
+.strip b{display:block;font-size:20px}
+@media (max-width:760px){.strip{grid-template-columns:1fr 1fr}.strip div:nth-child(2){border-right:0}.strip div:nth-child(-n+2){border-bottom:1px solid var(--rule)}}
+
+.sec{padding:48px}
+.sec h2{font-size:clamp(30px,3.6vw,44px);font-weight:800}
+.sec .intro{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:end;margin-bottom:32px}
+.sec .intro p{max-width:46ch;color:var(--muted);margin:0}
+@media (max-width:760px){.sec{padding:32px 20px}}
+
+.datasheets{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.ds{border:1px solid var(--rule);min-width:0;display:flex;flex-direction:column}
+.ds header{position:static;display:flex;justify-content:space-between;align-items:baseline;padding:12px 16px;border-bottom:1px solid var(--rule);background:transparent}
+.ds header b{color:var(--orange);font-family:var(--mono);font-size:12px}
+.ds .pic{padding:20px;border-bottom:1px solid var(--rule)}
+.ds .pic svg{width:100%;height:96px;color:var(--ink)}
+.ds h3{font-size:24px;padding:16px 16px 4px}
+.ds .use{color:var(--muted);font-size:14px;padding:0 16px 12px;margin:0}
+.ds table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:13px}
+.ds td{padding:8px 16px;border-top:1px solid var(--rule)}
+.ds td:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.ds td:first-child{color:var(--muted)}
+.ds .go{margin-top:auto;padding:14px 16px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;font-weight:700;text-decoration:none}
+.ds .go:hover{background:var(--grid)}
+@media (max-width:900px){.datasheets{grid-template-columns:1fr}}
+
+.terms{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--rule)}
+.terms > div{padding:28px;min-width:0}
+.terms > div + div{border-left:1px solid var(--rule)}
+.terms h3{font-size:26px;margin:6px 0 10px}
+.terms ul{margin:0;padding-left:18px;color:var(--muted)}
+@media (max-width:760px){.terms{grid-template-columns:1fr}.terms > div + div{border-left:0;border-top:1px solid var(--rule)}}
+
+.timeline{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;margin-top:8px;position:relative}
+.timeline div{padding:20px 20px 0 0;border-top:2px solid var(--rule);position:relative;min-width:0}
+.timeline div::before{content:"";position:absolute;top:-7px;left:0;width:12px;height:12px;border-radius:50%;background:var(--sheet);border:2px solid var(--muted)}
+.timeline div.now{border-top-color:var(--blue)}.timeline div.now::before{background:var(--blue);border-color:var(--blue)}
+.timeline div.next::before{border-color:var(--orange)}
+.timeline h3{font-size:20px;margin:6px 0}
+.timeline p{color:var(--muted);margin:0;font-size:15px}
+@media (max-width:760px){.timeline{grid-template-columns:1fr;gap:24px}}
+
+.contact{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px}
+.contact dl{display:grid;gap:14px;margin:20px 0 0}
+.contact dd{margin:2px 0 0;font-weight:700;font-size:18px}
+form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+form label{display:grid;gap:4px;font-size:13px;color:var(--muted)}
+form .full{grid-column:1/-1}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:2px;padding:10px 12px;width:100%}
+textarea{min-height:90px;resize:vertical}
+.ok{grid-column:1/-1;color:var(--blue);font-family:var(--mono);font-size:13px}
+@media (max-width:760px){.contact,form{grid-template-columns:1fr}}
+
+/* title block footer */
+.titleblock{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;border-top:1px solid var(--rule)}
+.titleblock div{padding:14px 20px;border-right:1px solid var(--rule);min-width:0}
+.titleblock div:last-child{border-right:0}
+.titleblock b{display:block;font-size:15px}
+@media (max-width:760px){.titleblock{grid-template-columns:1fr 1fr}.titleblock div:first-child{grid-column:1/-1;border-right:0;border-bottom:1px solid var(--rule)}}
+</style>
+
+<header><div class="wrap nav">
+  <a class="logo" href="#top"><svg viewBox="0 0 30 30" aria-hidden="true"><rect x="1" y="1" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"/><path d="M6 23V8l9 9 9-9v15" fill="none" stroke="var(--blue)" stroke-width="2.5"/></svg>Milabi Trading PLC</a>
+  <nav><a href="#fleet">Fleet</a><a href="#terms">Hire terms</a><a href="#company">Company</a><a href="#contact">Contact</a></nav>
+  <a class="btn" href="#contact">Request quote</a>
+</div></header>
+
+<main class="wrap" id="top">
+<div class="sheet">
+  <div class="hero">
+    <div class="copy">
+      <div class="mono">Plant hire · Grade 5 licensed contractor</div>
+      <h1>The right machine, <em>specified</em> for your site.</h1>
+      <p>Milabi rents excavators, wheel loaders and dump trucks to contractors and developers. Tell us the job and we match the machine, the term and the transport.</p>
+      <div class="ctas"><a class="btn" href="#contact">Request a quote</a><a class="btn line" href="#fleet">View datasheets</a></div>
+    </div>
+    <figure class="drawing" style="margin:0">
+      <svg viewBox="0 0 300 190" role="img" aria-label="Line drawing of an excavator with dimension lines">
+        <g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+          <rect x="30" y="132" width="140" height="26" rx="13"/><circle cx="46" cy="145" r="7"/><circle cx="154" cy="145" r="7"/>
+          <path d="M44 122h112v10H44z"/><path d="M36 80h92v42H36z"/><path d="M98 50h32v30H98z"/>
+          <path d="M120 92 L172 34 L186 42 L134 102Z"/><path d="M172 34 L238 74 L230 86 L168 48Z"/><path d="M230 76 L260 98 L246 128 L220 116Z"/>
+        </g>
+        <g class="dim" stroke-width="1" font-family="IBM Plex Mono,monospace" font-size="9">
+          <line x1="30" y1="174" x2="170" y2="174"/><line x1="30" y1="169" x2="30" y2="179"/><line x1="170" y1="169" x2="170" y2="179"/>
+          <text x="100" y="186" text-anchor="middle" stroke="none">TRACK LENGTH ≈ 4.4 m</text>
+          <line x1="280" y1="34" x2="280" y2="158"/><line x1="275" y1="34" x2="285" y2="34"/><line x1="275" y1="158" x2="285" y2="158"/>
+          <text x="276" y="100" stroke="none" text-anchor="end" transform="rotate(-90 276 100)" dx="40">REACH ≈ 9.9 m</text>
+        </g>
+      </svg>
+      <figcaption class="mono">Fig. 1 · 20–30 t crawler excavator, typical class dimensions</figcaption>
+    </figure>
+  </div>
+  <div class="strip">
+    <div><span class="mono">Machines</span><b>Excavator · Loader · Tipper</b></div>
+    <div><span class="mono">Terms</span><b>Day · Week · Month</b></div>
+    <div><span class="mono">Hire type</span><b>Wet or dry</b></div>
+    <div><span class="mono">Licence</span><b>Grade 5 contractor</b></div>
+  </div>
+</div>
+
+<div class="sheet sec" id="fleet">
+  <div class="intro"><h2>Fleet datasheets</h2><p>Typical figures for each class. We confirm the exact unit, serial and service record with every quote.</p></div>
+  <div class="datasheets">
+    <article class="ds"><header><span class="mono">Sheet A-01</span><b>EXC</b></header>
+      <div class="pic"><svg viewBox="0 0 260 120"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><rect x="18" y="92" width="120" height="22" rx="11"/><path d="M26 50h80v40H26z"/><path d="M80 26h28v26H80z"/><path d="M98 62 L144 12 L156 20 L110 72Z"/><path d="M144 12 L202 48 L194 58 L140 26Z"/><path d="M194 50 L222 70 L208 98 L184 86Z"/></g></svg></div>
+      <h3>Crawler excavator</h3><p class="use">Trenching, foundations, bulk excavation, demolition prep.</p>
+      <table><tr><td>Operating weight</td><td>20–30 t</td></tr><tr><td>Bucket capacity</td><td>1.0–1.6 m³</td></tr><tr><td>Max dig depth</td><td>≈ 6.5 m</td></tr><tr><td>Attachments</td><td>Bucket, breaker*</td></tr></table>
+      <a class="go" href="#contact">Quote this machine <span>→</span></a></article>
+    <article class="ds"><header><span class="mono">Sheet A-02</span><b>WLD</b></header>
+      <div class="pic"><svg viewBox="0 0 260 120"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><circle cx="62" cy="94" r="20"/><circle cx="160" cy="94" r="20"/><path d="M36 50h142v34H36z"/><path d="M104 14h44v36h-44z"/><path d="M176 56 L214 42 L220 52 L182 68Z"/><path d="M210 34 L244 34 L240 80 L212 80Z"/></g></svg></div>
+      <h3>Wheel loader</h3><p class="use">Loading trucks, moving aggregate, stockpile and yard work.</p>
+      <table><tr><td>Operating weight</td><td>≈ 17 t</td></tr><tr><td>Bucket capacity</td><td>≈ 3.0 m³</td></tr><tr><td>Dump height</td><td>≈ 3.0 m</td></tr><tr><td>Travel</td><td>Road-mobile</td></tr></table>
+      <a class="go" href="#contact">Quote this machine <span>→</span></a></article>
+    <article class="ds"><header><span class="mono">Sheet A-03</span><b>DMP</b></header>
+      <div class="pic"><svg viewBox="0 0 260 120"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><circle cx="56" cy="96" r="16"/><circle cx="166" cy="96" r="16"/><circle cx="206" cy="96" r="16"/><path d="M20 38h50v42H20z"/><path d="M80 28h156l-10 52H80z"/><path d="M20 80h216"/></g></svg></div>
+      <h3>Dump truck</h3><p class="use">Haulage of excavated soil, fill, sand and aggregate.</p>
+      <table><tr><td>Configuration</td><td>6×4 tipper</td></tr><tr><td>Body volume</td><td>16–20 m³</td></tr><tr><td>Payload</td><td>≈ 25 t</td></tr><tr><td>Billing</td><td>Per day or per trip</td></tr></table>
+      <a class="go" href="#contact">Quote this machine <span>→</span></a></article>
+  </div>
+  <p class="mono" style="margin:20px 0 0;text-transform:none;letter-spacing:0">* Example figures. Replace with your fleet's real units, counts and attachments.</p>
+</div>
+
+<div class="sheet sec" id="terms">
+  <div class="intro"><h2>Hire terms</h2><p>Every hire includes delivery inspection, a signed daily log sheet and breakdown support.</p></div>
+  <div class="terms">
+    <div><span class="mono">Option 1</span><h3>Wet hire</h3><ul><li>Machine with experienced operator</li><li>Fuel and daily greasing included</li><li>Billed per day or per machine hour</li></ul></div>
+    <div><span class="mono">Option 2</span><h3>Dry hire</h3><ul><li>Machine only, your operator</li><li>Fuel supplied by you</li><li>Weekly and monthly rates</li></ul></div>
+  </div>
+</div>
+
+<div class="sheet sec" id="company">
+  <div class="intro"><h2>Where Milabi is going</h2><p>Rental is the business today. Trading in machinery and parts is the next step.</p></div>
+  <div class="timeline">
+    <div class="now"><span class="mono">Now</span><h3>Machinery rental</h3><p>Excavators, wheel loaders and dump trucks on wet or dry hire.</p></div>
+    <div><span class="mono">Held</span><h3>Grade 5 contractor licence</h3><p>Licensed for construction work; our focus stays on plant hire.</p></div>
+    <div class="next"><span class="mono">After April 2027</span><h3>Trading division</h3><p>Sale and import of construction machinery and spare parts.</p></div>
+  </div>
+</div>
+
+<div class="sheet sec" id="contact">
+  <div class="contact">
+    <div><h2>Request a quote</h2><p style="color:var(--muted)">We reply within one working day with availability, rate and transport cost.</p>
+      <dl><div><dt class="mono">Phone</dt><dd>+251 ·· ··· ····</dd></div><div><dt class="mono">Email</dt><dd>info@milabi.example</dd></div><div><dt class="mono">Office</dt><dd>Addis Ababa, Ethiopia</dd></div></dl></div>
+    <form id="quote">
+      <label>Full name<input id="f-name" required></label>
+      <label>Phone<input id="f-phone" type="tel"></label>
+      <label>Machine<select id="f-machine"><option>Crawler excavator</option><option>Wheel loader</option><option>Dump truck</option></select></label>
+      <label>Quantity<input id="f-qty" type="number" min="1" value="1"></label>
+      <label>Hire type<select id="f-type"><option>Wet hire</option><option>Dry hire</option></select></label>
+      <label>Start date<input id="f-date" type="date"></label>
+      <label class="full">Site location and scope<textarea id="f-notes" placeholder="Town, access road, type of work, expected duration"></textarea></label>
+      <div class="full"><button class="btn" type="submit">Send request</button></div>
+      <p class="ok" id="ok" hidden>Design preview: the form is not connected yet.</p>
+    </form>
+  </div>
+</div>
+
+<div class="sheet titleblock">
+  <div><span class="mono">Company</span><b>Milabi Trading PLC</b></div>
+  <div><span class="mono">Licence</span><b>Grade 5</b></div>
+  <div><span class="mono">Location</span><b>Addis Ababa</b></div>
+  <div><span class="mono">Rev.</span><b>2026</b></div>
+</div>
+</main>
+<script>document.getElementById('quote').addEventListener('submit',e=>{e.preventDefault();document.getElementById('ok').hidden=false});</script>

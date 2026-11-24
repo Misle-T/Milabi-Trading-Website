@@ -222,7 +222,8 @@ table.kv td:last-child { text-align: right; font-family: var(--mono); font-size:
 .related svg { width: 140px; height: auto; flex: none; color: var(--green); }
 .related b { display: block; font-family: var(--display); font-stretch: 70%; font-size: 30px; text-transform: uppercase; }
 .related:hover { border-color: var(--green); color: var(--ink); }
-@media (max-width: 900px) { .detail { grid-template-columns: 1fr; } }
+.contact-layout { grid-template-columns: 1.25fr .75fr; }
+@media (max-width: 900px) { .detail, .contact-layout { grid-template-columns: 1fr; } }
 @media (max-width: 480px) { .related { flex-direction: column; align-items: flex-start; } }
 
 /* Terms tiles */
